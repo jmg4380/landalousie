@@ -1,12 +1,15 @@
 import { MoonIcon, SunIcon } from '#common/icons';
 import { useTheme } from '#core/theme';
+import { siteConfigQueryOptions } from '#pods/site-config';
 import { translationsQueryOptions } from '#pods/translations';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
+import { Image } from '@unpic/react';
 import React from 'react';
 
 export const Header: React.FC = () => {
   const { data: translations } = useSuspenseQuery(translationsQueryOptions());
+  const { data: siteConfig } = useSuspenseQuery(siteConfigQueryOptions());
   const { theme, toggle } = useTheme();
   return (
     <header className="bg-secondary-100 dark:bg-secondary-900 text-tbase-500/90 sticky top-0 z-50 flex w-full items-center justify-between px-4 py-4 shadow-sm backdrop-blur-md md:px-6">
@@ -16,7 +19,18 @@ export const Header: React.FC = () => {
           className="hover:text-primary-500 dark:hover:text-primary-300 transition-colors"
         >
           <h1>
-            <span>{translations['header.logoTitle']}</span>
+            {siteConfig.headerLogo ? (
+              <Image
+                src={siteConfig.headerLogo.url}
+                alt={translations['header.logoTitle']}
+                className="h-10 md:h-12 w-auto"
+                height={48}
+                aspectRatio={420 / 100}
+                layout="constrained"
+              />
+            ) : (
+              <span>{translations['header.logoTitle']}</span>
+            )}
             <span className="sr-only">
               {translations['header.a11y.titleLinkLabel']}
             </span>

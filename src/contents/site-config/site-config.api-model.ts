@@ -13,6 +13,7 @@ export interface SiteConfig {
   language: 'fr';
   lastUpdate: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
   favicon: Media;
+  headerLogo: Media;
   primaryColor: string; // Stores the color in hex format. For example: #FF5733
   secondaryColor: string; // Stores the color in hex format. For example: #FF5733
   titleFont: Font;

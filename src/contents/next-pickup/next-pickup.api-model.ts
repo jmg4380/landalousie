@@ -4,5 +4,8 @@ export interface NextPickup {
   lastUpdate: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
   title: string;
   description: string;
-  dateTime: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
+  maxOrderDateTime: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
+  deliveryDateTime: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
+  nextMaxOrderDeliveryDateTime: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
+  nextDeliveryDateTime: string; // Stores the date in ISO 8601 format. For example: 2021-09-10T19:30:00.000Z
 }

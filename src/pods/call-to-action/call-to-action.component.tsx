@@ -1,5 +1,5 @@
 import { OvalShape, RectangleShape } from '#common/shapes';
-import { mapNextPickupDate, nextPickupQueryOptions } from '#pods/next-pickup';
+import { mapDeliveryDateTime, nextPickupQueryOptions } from '#pods/next-pickup';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { marked } from 'marked';
 import { callToActionQueryOptions } from './call-to-action.query';
@@ -8,7 +8,7 @@ export const CallToAction = () => {
   const { data: nextPickup } = useSuspenseQuery(nextPickupQueryOptions());
   const { data: callToAction } = useSuspenseQuery(callToActionQueryOptions());
   const description = marked(
-    mapNextPickupDate(callToAction.description, nextPickup)
+    mapDeliveryDateTime(callToAction.description, nextPickup)
   );
 
   return (

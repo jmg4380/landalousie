@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { marked } from 'marked';
-import { mapNextPickupDate } from './next-pickup.mappers';
+import { mapDeliveryDateTime } from './next-pickup.mappers';
 import { nextPickupQueryOptions } from './next-pickup.query';
 
 export const NextPickup = () => {
   const { data: nextPickup } = useSuspenseQuery(nextPickupQueryOptions());
   const description = marked(
-    mapNextPickupDate(nextPickup.description, nextPickup)
+    mapDeliveryDateTime(nextPickup.description, nextPickup)
   );
 
   return (

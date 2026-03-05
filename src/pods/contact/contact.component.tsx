@@ -1,10 +1,13 @@
 import { RectangleShape } from '#common/shapes';
+import { mapMaxOrderDateTime, nextPickupQueryOptions } from '#pods/next-pickup';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { contactQueryOptions } from './contact.query';
 
 export const Contact = () => {
+  const { data: nextPickup } = useSuspenseQuery(nextPickupQueryOptions());
   const { data: contact } = useSuspenseQuery(contactQueryOptions());
 
+  const location = mapMaxOrderDateTime(contact.location, nextPickup);
   return (
     <section
       className="bg-primary-50 dark:bg-primary-900 relative overflow-clip rounded-2xl p-6 md:w-1/2 lg:w-full"
@@ -14,9 +17,7 @@ export const Contact = () => {
         <h2 className="font-geist text-tbase-500/80 font-bold" id="contact">
           {contact.title}
         </h2>
-        <p className="text-sm leading-[1.3] decoration-[1.4px]">
-          {contact.location}
-        </p>
+        <p className="text-sm leading-[1.3] decoration-[1.4px]">{location}</p>
       </div>
 
       <div className="text-primary-500/25 dark:text-primary-500/35 md:220 absolute right-[-75%] bottom-[-25%] h-60 w-150 lg:w-110">

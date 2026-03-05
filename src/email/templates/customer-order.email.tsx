@@ -6,7 +6,7 @@ import { fetchNextPickup, type NextPickup } from '#contents/next-pickup';
 import { fetchProductConfig, ProductConfig } from '#contents/product-config';
 import { fetchSiteConfig, type SiteConfig } from '#contents/site-config';
 import { ProductList, type Product } from '#email/common/products';
-import { mapNextPickupDate } from '#pods/next-pickup';
+import { mapDeliveryDateTime } from '#pods/next-pickup';
 import { LanguageCode } from '@content-island/api-client';
 import * as email from '@react-email/components';
 import { Markdown } from '@react-email/markdown';
@@ -66,7 +66,7 @@ const CustomerOrderEmail = (props: Props) => {
               </email.Text>
               <div className="text-text text-base m-0 next-pickup-markdown">
                 <Markdown>
-                  {mapNextPickupDate(nextPickup.description, nextPickup)}
+                  {mapDeliveryDateTime(nextPickup.description, nextPickup)}
                 </Markdown>
               </div>
             </email.Column>
@@ -165,7 +165,10 @@ CustomerOrderEmail.PreviewProps = {
     title: 'Date & Pickup location 📦',
     description:
       "✍️ Appointment to pick up my box on {{nextPickupDate}} at [L'USINE AU SEQUOIA  - 09240  SENTENAC-DE-SEROU](https://maps.app.goo.gl/kK5SovqLwLMcajPK7) from 6:00 p.m. to 8:00 p.m.",
-    dateTime: new Date('2026-02-23 18:00').toISOString(),
+    maxOrderDateTime: new Date('2026-02-20 17:00').toISOString(),
+    deliveryDateTime: new Date('2026-02-23 18:00').toISOString(),
+    nextMaxOrderDeliveryDateTime: new Date('2026-03-10 17:00').toISOString(),
+    nextDeliveryDateTime: new Date('2026-03-13 18:00').toISOString(),
   },
   invoiceUrl: 'https://example.com/my-invoice.pdf',
 } as Props;
