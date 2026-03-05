@@ -25,7 +25,14 @@ const config = defineConfig(({ mode }) => {
   ];
 
   if (mode === 'production') {
-    plugins.push(nitro());
+    plugins.push(
+      nitro({
+        preset: 'vercel',
+        vercel: {
+          entryFormat: 'node',
+        },
+      })
+    );
   }
 
   return {
