@@ -5,6 +5,7 @@ import { useShoppingCart } from '#pods/shopping-cart';
 import { translationsQueryOptions } from '#pods/translations';
 import { useStore } from '@nanostores/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { ClientOnly } from '@tanstack/react-router';
 import React from 'react';
 import { useCheckout } from '../api';
 import { COUNTRY_PHONE_CODES } from '../checkout.constants';
@@ -179,7 +180,9 @@ export const ContactForm = () => {
           ) : (
             <>
               <span>{translations['checkout.form.submitButton']}</span>
-              <span>{shoppingCart.totalLabel}</span>
+              <ClientOnly>
+                <span>{shoppingCart.totalLabel}</span>
+              </ClientOnly>
             </>
           )}
         </button>

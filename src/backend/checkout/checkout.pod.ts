@@ -84,7 +84,6 @@ export const checkout = createServerFn({ method: 'POST' })
       if (!session.url) {
         throw new Error('Failed to create checkout session URL.');
       }
-      // TODO: Enviar email de info
       logger.info(`Checkout session created: ${session.id}`);
       return { url: session.url };
     } catch (error) {

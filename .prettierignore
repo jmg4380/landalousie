@@ -5,3 +5,4 @@ dist
 *.ejs
 .cache
 public
+routeTree.gen.ts

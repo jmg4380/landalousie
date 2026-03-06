@@ -1,6 +1,7 @@
 import { useShoppingCart } from '#pods/shopping-cart';
 import { translationsQueryOptions } from '#pods/translations';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { ClientOnly } from '@tanstack/react-router';
 import { ContactForm } from './components';
 
 export const Checkout = () => {
@@ -34,60 +35,62 @@ export const Checkout = () => {
           {translations['checkout.order.title']}
         </h3>
         <div className="flex flex-col gap-6">
-          {shoppingCart.products.length === 0 ? (
-            <p className="text-tbase-500/60">
-              {translations['checkout.order.emptyCart']}
-            </p>
-          ) : (
-            <ul className="flex flex-col gap-4">
-              {shoppingCart.products.map((product) => (
-                <li key={product.id} className="flex gap-4">
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700 bg-white">
-                    <img
-                      src={product.image.url}
-                      alt={product.name}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-center">
-                    <div className="flex justify-between items-start">
-                      <h4
-                        className="text-sm font-medium text-tbase-500 line-clamp-2"
-                        title={product.name}
-                      >
-                        {product.name}
-                      </h4>
-                      <p className="ml-4 text-sm font-medium text-tbase-500 whitespace-nowrap">
-                        {product.calculatedPriceLabel}
-                      </p>
+          <ClientOnly>
+            {shoppingCart.products.length === 0 ? (
+              <p className="text-tbase-500/60">
+                {translations['checkout.order.emptyCart']}
+              </p>
+            ) : (
+              <ul className="flex flex-col gap-4">
+                {shoppingCart.products.map((product) => (
+                  <li key={product.id} className="flex gap-4">
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700 bg-white">
+                      <img
+                        src={product.image.url}
+                        alt={product.name}
+                        className="h-full w-full object-cover object-center"
+                      />
                     </div>
-                    <div className="mt-1 flex justify-between items-end text-xs text-tbase-500/70">
-                      <p>
-                        {product.quantity} x {product.priceLabel}{' '}
-                        {product.priceUnit}
-                      </p>
+                    <div className="flex flex-1 flex-col justify-center">
+                      <div className="flex justify-between items-start">
+                        <h4
+                          className="text-sm font-medium text-tbase-500 line-clamp-2"
+                          title={product.name}
+                        >
+                          {product.name}
+                        </h4>
+                        <p className="ml-4 text-sm font-medium text-tbase-500 whitespace-nowrap">
+                          {product.calculatedPriceLabel}
+                        </p>
+                      </div>
+                      <div className="mt-1 flex justify-between items-end text-xs text-tbase-500/70">
+                        <p>
+                          {product.quantity} x {product.priceLabel}{' '}
+                          {product.priceUnit}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
+                  </li>
+                ))}
+              </ul>
+            )}
 
-          <hr className="border-tbase-500/10 my-1" />
+            <hr className="border-tbase-500/10 my-1" />
 
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between items-center text-sm text-tbase-500/80">
-              <span>{translations['checkout.order.subtotal']}</span>
-              <span>{shoppingCart.totalLabel}</span>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center text-sm text-tbase-500/80">
+                <span>{translations['checkout.order.subtotal']}</span>
+                <span>{shoppingCart.totalLabel}</span>
+              </div>
+              <div className="flex justify-between items-center font-bold text-lg text-tbase-500 mt-2">
+                <span>{translations['checkout.order.total']}</span>
+                <span>{shoppingCart.totalLabel}</span>
+              </div>
+              <p className="text-xs text-right text-tbase-500/60">
+                {shoppingCart.taxesLabel}
+              </p>
             </div>
-            <div className="flex justify-between items-center font-bold text-lg text-tbase-500 mt-2">
-              <span>{translations['checkout.order.total']}</span>
-              <span>{shoppingCart.totalLabel}</span>
-            </div>
-            <p className="text-xs text-right text-tbase-500/60">
-              {shoppingCart.taxesLabel}
-            </p>
-          </div>
+          </ClientOnly>
         </div>
       </section>
     </div>

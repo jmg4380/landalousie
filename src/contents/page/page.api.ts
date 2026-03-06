@@ -1,7 +1,7 @@
 import { contentIsland } from '#core/services/content-island.service';
-import type { Page } from './page.api-model';
+import type { Page, PageId } from './page.api-model';
 
-export const fetchPage = async (pageId: string) =>
+export const fetchPage = async (pageId: PageId) =>
   await contentIsland.getContent<Page>({
     contentType: 'Page',
     'fields.pageId': pageId,
